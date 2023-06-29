@@ -3,8 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from config import settings
 print('amira')
-from router import user
-from auth.auth import router
+from routers import property, user
+
+from authentication import auth
 
 app = FastAPI()
 origins = [
@@ -13,16 +14,15 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins='http://localhost:3000',
+    allow_origins='http://localhost:4200',
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-app.include_router(router, tags=['Auth'], prefix='/api/auth')
-app.include_router(router, tags=['Users'], prefix='/api/users')
-
+app.include_router(property.router, tags=['Posts'], prefix='/api/posts')
+app.include_router(auth.router, tags=['Auth'], prefix='/api/auth')
 
 @app.get("/api/healthchecker")
 def root():

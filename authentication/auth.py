@@ -72,7 +72,7 @@ def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT = Dep
                         ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, False, 'lax')
 
     # Send both access
-    return {'status': 'success', 'access_token': access_token}
+    return {'status': 'success', 'access_token': access_token,'data':user}
 
 
 @router.get('/refresh')
