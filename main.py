@@ -12,6 +12,7 @@ origins = [
     settings.CLIENT_ORIGIN,
 ]
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins='http://localhost:4200',
