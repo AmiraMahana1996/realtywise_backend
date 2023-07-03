@@ -1,0 +1,7 @@
+fastapi==0.99.1
+fastapi_jwt_auth==0.5.0
+passlib==1.7.4
+pydantic==1.10.9
+pymongo==4.3.3
+python-dotenv==1.0.0
+scikit_learn==1.2.2
