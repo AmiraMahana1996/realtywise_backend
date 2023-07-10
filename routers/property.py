@@ -13,7 +13,7 @@ router = APIRouter()
 
 # [...] Get All Posts
 @router.get('/')
-def get_posts(limit: int = 10, page: int = 1, search: str = '', user_id: str = Depends(require_user)):
+def get_posts(limit: int = 50, page: int = 1, search: str = ''):
     skip = (page - 1) * limit
     pipeline = [
         {'$match': {}},
@@ -26,13 +26,14 @@ def get_posts(limit: int = 10, page: int = 1, search: str = '', user_id: str = D
             '$limit': limit
         }
     ]
-    posts = propertyListEntity(Property.aggregate(pipeline))
-    return {'status': 'success', 'results': len(posts), 'posts': posts}
+    properties = propertyListEntity(Property.aggregate(pipeline))
+    return {'status': 'success', 'results': len(properties), 'properties': properties}
 
 # [...] Create Post
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def create_post(property: CreatePropertySchema, user_id: str = Depends(require_user)):
-    property.user = ObjectId(user_id)
+def create_post(property: CreatePropertySchema):
+    print(str(property.user))
+    property.user = ObjectId(str(property.user))
     property.created_at = datetime.utcnow()
     property.updated_at = property.created_at
     try:

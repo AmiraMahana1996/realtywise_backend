@@ -22,6 +22,7 @@ def propertyEntity(post) -> dict:
         "propertyAddressLine3": post["propertyAddressLine3"],
         "images": post["images"],
         "advertising": post["advertising"],
+        "advertisingImageCover": post["advertisingImageCover"]
     }
 
 
@@ -49,6 +50,8 @@ def populatedPropertyEntity(post) -> dict:
         "user": embeddedUserResponse(post["user"]),
         "created_at": post["created_at"],
         "updated_at": post["updated_at"],
+        "advertisingImageCover": post["advertisingImageCover"],
+    
     }
 
 

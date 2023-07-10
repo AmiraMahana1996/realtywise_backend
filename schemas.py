@@ -64,6 +64,7 @@ class PropertyBaseSchema(BaseModel):
     propertyAddressLine3:str
     images:list
     advertising:str
+    advertisingImageCover:str
     created_at: datetime | None = None
     updated_at: datetime | None = None
 
@@ -75,12 +76,13 @@ class PropertyBaseSchema(BaseModel):
 
 
 class CreatePropertySchema(PropertyBaseSchema):
-    user: ObjectId | None = None
+    user: str
     pass
 
 
 class PropertyResponse(PropertyBaseSchema):
     id: str
+    advertisingImageCover:str
     user: FilteredUserResponse
     created_at: datetime
     updated_at: datetime
@@ -104,6 +106,7 @@ class UpdatePropertySchema(BaseModel):
     propertyAddressLine3:str
     images:list
     advertising:str
+    advertisingImageCover:str
     class Config:
         orm_mode = True
         allow_population_by_field_name = True

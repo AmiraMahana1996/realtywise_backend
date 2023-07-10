@@ -38,9 +38,14 @@ class UserNotFound(Exception):
 
 
 def require_user(Authorize: AuthJWT = Depends()):
+    print(Authorize.get_jwt_subject())
+    # print(Authorize.jwt_required())
     try:
-        Authorize.jwt_required()
+        
+        # Authorize.jwt_required()
         user_id = Authorize.get_jwt_subject()
+        print(user_id)
+        print("amira")
         user = userEntity(User.find_one({'_id': ObjectId(str(user_id))}))
 
         if not user:
@@ -51,6 +56,7 @@ def require_user(Authorize: AuthJWT = Depends()):
 
     except Exception as e:
         error = e.__class__.__name__
+        print("Error")
         print(error)
         if error == 'MissingTokenError':
             raise HTTPException(
