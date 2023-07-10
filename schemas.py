@@ -41,32 +41,32 @@ class FilteredUserResponse(UserBaseSchema):
     id: str
 
 # end user schema
+
+
+
 # property schema
 
-
-class PostBaseSchema(BaseModel):
-    owner_name: str
-    owner_phone: str
-    owner_address_line1: str
-    owner_address_line2: str
-    owner_address_line3: str
-    email: str
-    city: str
-    country: str
-    zip_code: str
-    description: str
+class PropertyBaseSchema(BaseModel):
+    fname: str
+    lname: str
+    contactNumber: str
+    phoneNumber: str
+    emial:str
+    DOB:str
+    city:str
+    zip_code:str
+    desc:str
+    propertyType:str
+    propertySize:str
+    price:str
+    propertyAddressLine1:str
+    propertyAddressLine2:str
+    propertyAddressLine3:str
+    images:list
+    advertising:str
     created_at: datetime | None = None
     updated_at: datetime | None = None
-    created_by: str
-    property_type:str
-    property_name:str
-    property_size:str
-    property_accepted_price_range:str
-    property_address_line1:str
-    property_address_line2:str
-    property_zipCode:str
-    property_images:str
-    property_code:str
+
     class Config:
         orm_mode = True
         allow_population_by_field_name = True
@@ -74,3 +74,44 @@ class PostBaseSchema(BaseModel):
         json_encoders = {ObjectId: str}
 
 
+class CreatePropertySchema(PropertyBaseSchema):
+    user: ObjectId | None = None
+    pass
+
+
+class PropertyResponse(PropertyBaseSchema):
+    id: str
+    user: FilteredUserResponse
+    created_at: datetime
+    updated_at: datetime
+
+
+class UpdatePropertySchema(BaseModel):
+    fname: str
+    lname: str
+    contactNumber: str
+    phoneNumber: str
+    emial:str
+    DOB:str
+    city:str
+    zip_code:str
+    desc:str
+    propertyType:str
+    propertySize:str
+    price:str
+    propertyAddressLine1:str
+    propertyAddressLine2:str
+    propertyAddressLine3:str
+    images:list
+    advertising:str
+    class Config:
+        orm_mode = True
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+
+
+class ListPropertyResponse(BaseModel):
+    status: str
+    results: int
+    posts: List[PropertyResponse]

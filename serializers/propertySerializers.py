@@ -1,62 +1,57 @@
+from serializers.userSerializers import embeddedUserResponse
+
 
 def propertyEntity(post) -> dict:
     return {
         "id": str(post["_id"]),
-        "owner_name": post["owner_name"],
-        "owner_phone": post["owner_phone"],
-        "owner_address_line1": post["owner_address_line1"],
-        "owner_address_line2": post["owner_address_line2"],
-        "owner_address_line3": post["owner_address_line3"],
-        "email":post["email"],
+        "fname": post["fname"],
+        "lname": post["lname"],
+        "contactNumber": post["contactNumber"],
+        "phoneNumber": post["phoneNumber"],
+        "emial": post["emial"],
+        "DOB":post["DOB"],
         "city": post["city"],
-        "country": post["country"],
+        "coudescntry": post["desc"],
         "zip_code": post["zip_code"],
-        "description": post["description"],
-        "property_type": post["property_type"],
-        "property_name": post["property_name"],
-        "property_size": post["property_size"],
-        "property_accepted_price_range": post["property_accepted_price_range"],
-        "property_address_line1": post["property_address_line1"],
-        "property_address_line2": post["property_address_line2"],
-        "property_zipCode": post["property_zipCode"],
-        "property_images": post["property_images"],
-        "property_code": post["property_code"],
-        "property_code": post["property_code"],
-        "created_at": post["created_at"],
-        "updated_at": post["updated_at"],
-        "created_by": post["created_by"]
+        "desc": post["desc"],
+        "propertyType": post["propertyType"],
+        "propertySize": post["propertySize"],
+        "price": post["price"],
+        "propertyAddressLine1": post["propertyAddressLine1"],
+        "propertyAddressLine2": post["propertyAddressLine2"],
+        "propertyAddressLine3": post["propertyAddressLine3"],
+        "images": post["images"],
+        "advertising": post["advertising"],
     }
 
 
-def populatedPostEntity(post) -> dict:
+def populatedPropertyEntity(post) -> dict:
     return {
         "id": str(post["_id"]),
-        "owner_name": post["owner_name"],
-        "owner_phone": post["owner_phone"],
-        "owner_address_line1": post["owner_address_line1"],
-        "owner_address_line2": post["owner_address_line2"],
-        "owner_address_line3": post["owner_address_line3"],
-        "email":post["email"],
+        "fname": post["fname"],
+        "lname": post["lname"],
+        "contactNumber": post["contactNumber"],
+        "phoneNumber": post["phoneNumber"],
+        "emial": post["emial"],
+        "DOB":post["DOB"],
         "city": post["city"],
-        "country": post["country"],
+        "coudescntry": post["desc"],
         "zip_code": post["zip_code"],
-        "description": post["description"],
-        "property_type": post["property_type"],
-        "property_name": post["property_name"],
-        "property_size": post["property_size"],
-        "property_accepted_price_range": post["property_accepted_price_range"],
-        "property_address_line1": post["property_address_line1"],
-        "property_address_line2": post["property_address_line2"],
-        "property_zipCode": post["property_zipCode"],
-        "property_images": post["property_images"],
-        "property_code": post["property_code"],
-        "property_code": post["property_code"],
+        "desc": post["desc"],
+        "propertyType": post["propertyType"],
+        "propertySize": post["propertySize"],
+        "price": post["price"],
+        "propertyAddressLine1": post["propertyAddressLine1"],
+        "propertyAddressLine2": post["propertyAddressLine2"],
+        "propertyAddressLine3": post["propertyAddressLine3"],
+        "images": post["images"],
+        "advertising": post["advertising"],
+        "user": embeddedUserResponse(post["user"]),
         "created_at": post["created_at"],
         "updated_at": post["updated_at"],
-        "created_by": post["created_by"]
     }
 
 
-def postListEntity(posts) -> list:
-    return [populatedPostEntity(post) for post in posts]
+def propertyListEntity(posts) -> list:
+    return [populatedPropertyEntity(post) for post in posts]
 

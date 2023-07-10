@@ -17,4 +17,3 @@ Property = db.properties
 
 User.create_index([("email", pymongo.ASCENDING)], unique=True)
 
-Property.create_index([("property_code", pymongo.ASCENDING)], unique=True)

@@ -22,7 +22,7 @@ app.add_middleware(
 )
 
 
-app.include_router(property.router, tags=['Posts'], prefix='/api/posts')
+app.include_router(property.router, tags=['Properties'], prefix='/api/properties')
 app.include_router(auth.router, tags=['Auth'], prefix='/api/auth')
 
 @app.get("/api/healthchecker")
