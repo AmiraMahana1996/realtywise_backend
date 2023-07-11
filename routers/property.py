@@ -7,13 +7,15 @@ from oauth2 import require_user
 from serializers.propertySerializers import propertyEntity, propertyListEntity
 from bson.objectid import ObjectId
 from pymongo.errors import DuplicateKeyError
-
+import urllib.request
 router = APIRouter()
 
 
 # [...] Get All Posts
 @router.get('/')
-def get_posts(limit: int = 50, page: int = 1, search: str = ''):
+def get_posts(limit: int = 50, page: int = 1, search: str = '' ):
+
+
     skip = (page - 1) * limit
     pipeline = [
         {'$match': {}},
@@ -25,7 +27,9 @@ def get_posts(limit: int = 50, page: int = 1, search: str = ''):
         }, {
             '$limit': limit
         }
-    ]
+    ] 
+
+
     properties = propertyListEntity(Property.aggregate(pipeline))
     return {'status': 'success', 'results': len(properties), 'properties': properties}
 

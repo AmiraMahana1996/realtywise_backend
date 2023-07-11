@@ -62,7 +62,7 @@ def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT = Dep
     # Create refresh token
     refresh_token = Authorize.create_refresh_token(
         subject=str(user["id"]), expires_time=timedelta(minutes=REFRESH_TOKEN_EXPIRES_IN))
-
+    logged_in=True
     # Store refresh and access tokens in cookie
     response.set_cookie(key="name",value="mero")
     response.set_cookie('access_token', access_token, ACCESS_TOKEN_EXPIRES_IN * 60,
@@ -73,7 +73,7 @@ def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT = Dep
                         ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, False, 'lax')
 
     # Send both access
-    return {'status': 'success', 'access_token': access_token,'data':user,'refresh_token':refresh_token}
+    return {'status': 'success', 'access_token': access_token,'data':user,'refresh_token':refresh_token,'logged_in':logged_in}
 
 
 @router.get('/refresh')
