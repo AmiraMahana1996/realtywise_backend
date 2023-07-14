@@ -1,13 +1,13 @@
 from datetime import datetime, timedelta
 from bson.objectid import ObjectId
 from fastapi import APIRouter, Response, status, Depends, HTTPException
-from oauth2 import  require_user
+from oauth2 import require_user
 from database import User
 from serializers.userSerializers import userEntity, userResponseEntity
 
-from schemas import CreateUserSchema, UserResponse,LoginUserSchema
-from utils import hash_password,verify_password
-from oauth2 import AuthJWT,Depends
+from schemas import CreateUserSchema, UserResponse, LoginUserSchema
+from utils import hash_password, verify_password
+from oauth2 import AuthJWT, Depends
 from config import settings
 
 
@@ -57,14 +57,14 @@ def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT = Dep
     # Create access token
     secret_key = 'my_secret_key'
     access_token = Authorize.create_access_token(
-        subject=str(user["id"]), expires_time=timedelta(minutes=15),algorithm='RS256')
+        subject=str(user["id"]), expires_time=timedelta(minutes=15), algorithm='RS256')
     print(access_token)
     # Create refresh token
     refresh_token = Authorize.create_refresh_token(
         subject=str(user["id"]), expires_time=timedelta(minutes=REFRESH_TOKEN_EXPIRES_IN))
-    logged_in=True
+    logged_in = True
     # Store refresh and access tokens in cookie
-    response.set_cookie(key="name",value="mero")
+    response.set_cookie(key="name", value="mero")
     response.set_cookie('access_token', access_token, ACCESS_TOKEN_EXPIRES_IN * 60,
                         ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, True, 'lax')
     response.set_cookie('refresh_token', refresh_token,
@@ -73,7 +73,7 @@ def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT = Dep
                         ACCESS_TOKEN_EXPIRES_IN * 60, '/', None, False, False, 'lax')
 
     # Send both access
-    return {'status': 'success', 'access_token': access_token,'data':user,'refresh_token':refresh_token,'logged_in':logged_in}
+    return {'status': 'success', 'access_token': access_token, 'data': user, 'refresh_token': refresh_token, 'logged_in': logged_in}
 
 
 @router.get('/refresh')
@@ -112,4 +112,3 @@ def logout(response: Response, Authorize: AuthJWT = Depends(), user_id: str = De
     response.set_cookie('logged_in', '', -1)
 
     return {'status': 'success'}
-

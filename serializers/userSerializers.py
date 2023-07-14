@@ -3,7 +3,7 @@ def userEntity(user) -> dict:
         "id": str(user["_id"]),
         "name": user["name"],
         "email": user["email"],
-        "role": user["role"],
+        "city": user["city"],
       
         "verified": user["verified"],
         "password": user["password"],
@@ -17,7 +17,7 @@ def userResponseEntity(user) -> dict:
         "id": str(user["_id"]),
         "name": user["name"],
         "email": user["email"],
-        "role": user["role"],
+        "city": user["city"],
      
         "created_at": user["created_at"],
         "updated_at": user["updated_at"]

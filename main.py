@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from config import settings
-print('amira')
-from routers import property, user ,TFIDF
+
+from routers import property, user, TFIDF, connection
 
 from authentication import auth
 
@@ -27,12 +27,14 @@ app.add_middleware(
 )
 
 
-app.include_router(property.router, tags=['Properties'], prefix='/api/properties')
+app.include_router(property.router, tags=[
+                   'Properties'], prefix='/api/properties')
 app.include_router(auth.router, tags=['Auth'], prefix='/api/auth')
-app.include_router(TFIDF.router, tags=['Auth'], prefix='/api/tfidf')
+app.include_router(TFIDF.router, tags=['TFIDF'], prefix='/api/tfidf')
+app.include_router(connection.router, tags=[
+                   'Connect'], prefix='/api/connection')
 
 
 @app.get("/api/healthchecker")
 def root():
     return {"message": "Welcome to FastAPI with MongoDB"}
-

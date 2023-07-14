@@ -1,5 +1,5 @@
 from serializers.userSerializers import embeddedUserResponse
-
+from bson.objectid import ObjectId
 
 def propertyEntity(post) -> dict:
     return {
@@ -28,7 +28,7 @@ def propertyEntity(post) -> dict:
 
 def populatedPropertyEntity(post) -> dict:
     return {
-        "id": str(post["_id"]),
+        "id": ObjectId(post["_id"]),
         "fname": post["fname"],
         "lname": post["lname"],
         "contactNumber": post["contactNumber"],
