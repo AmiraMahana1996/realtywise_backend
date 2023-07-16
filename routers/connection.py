@@ -17,7 +17,6 @@ router = APIRouter()
 
 @router.post('/create-conect')
 def create(connect: ConnectBaseSchema):
-    print(connect)
     connect.created_at = datetime.utcnow()
     connect.updated_at = connect.created_at
     result = Connect.insert_one(connect.dict())
@@ -34,7 +33,6 @@ def create(connect: ConnectBaseSchema):
 @router.get('/{id}')
 def get_connect(id: str):
     _id = str(id)
-    print(_id)
     connect = Connect.find({"user_id": _id})
     return json.loads(json_util.dumps(connect))
 
@@ -42,7 +40,7 @@ def get_connect(id: str):
 @router.get('/details/{id}')
 def get_connect(id: str):
     _id = ObjectId(str(id))
-    print(_id)
+
     connect = Connect.find_one({"_id": _id})
     return json.loads(json_util.dumps(connect))
 
@@ -71,7 +69,7 @@ def get_accept_connect(id: str):
 
 @router.get('/get-connections/{userId}')
 def get_posts(userId: str):
-    print(userId)
+
     connections = Connect.find({"user_id": str(userId)})
 
     return {'status': 'success', 'results': 'success', 'connections': json.loads(json_util.dumps(connections))}

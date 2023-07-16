@@ -16,7 +16,7 @@ router = APIRouter()
 
 @router.get('/properties/{userId}')
 def get_posts(userId: str):
-    print(userId)
+
     properties = Property.find({"user": ObjectId(str(userId))})
 
     return {'status': 'success', 'results': 'success', 'properties': json.loads(json_util.dumps(properties))}
@@ -26,7 +26,7 @@ def get_posts(userId: str):
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create_post(property: CreatePropertySchema):
-    print(str(property.user))
+
     property.user = ObjectId(str(property.user))
     property.created_at = datetime.utcnow()
     property.updated_at = property.created_at
@@ -48,7 +48,7 @@ def create_post(property: CreatePropertySchema):
 # [...] Update Post
 @router.put('/{id}')
 def update_property(id: str, payload: UpdatePropertySchema):
-    print("amira")
+
     if not ObjectId.is_valid(id):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail=f"Invalid id: {id}")
@@ -64,7 +64,7 @@ def update_property(id: str, payload: UpdatePropertySchema):
 @router.get('/{id}')
 def get_property(id: str):
     _id = ObjectId(str(id))
-    print(_id)
+
     pro = Property.find_one({"_id": _id})
 
     return json.loads(json_util.dumps(pro))

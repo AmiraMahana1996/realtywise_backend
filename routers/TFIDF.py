@@ -30,7 +30,7 @@ def TFIDF(term: str):
     document_indices = [i for i in range(len(similarity_scores))]
     sorted_indices = sorted(
         document_indices, key=lambda i: similarity_scores[i], reverse=True)
-    print(sorted_indices)
+
     # print the top 10 documents
     rankingDocs = list()
     if len(sorted_indices) == 0:
@@ -39,7 +39,7 @@ def TFIDF(term: str):
         for i in range(7):
             doc_index = sorted_indices[i]
             _id = documents[doc_index]["_id"]
-            print(_id)
+
             str_id = _id
             doc = Property.find_one({"_id": str_id})
             rankingDocs.append(doc)
@@ -50,8 +50,7 @@ def TFIDF(term: str):
 
 @router.get('/{term}')
 def get_properties(term: str, type:  str = None):
-    print(term)
-    print(type)
+
     if not type:
         Documents = Property.find()
     else:
@@ -75,16 +74,15 @@ def get_properties(term: str, type:  str = None):
     document_indices = [i for i in range(len(similarity_scores))]
     sorted_indices = sorted(
         document_indices, key=lambda i: similarity_scores[i], reverse=True)
-    print(sorted_indices)
+
     # print the top 10 documents
     rankingDocs = list()
     if len(sorted_indices) == 0:
         return "There is no posts related with this term"
     else:
-        for i in range(4):
+        for i in range(5):
             doc_index = sorted_indices[i]
             _id = documents[doc_index]["_id"]
-            print(_id)
             str_id = _id
             doc = Property.find_one({"_id": str_id})
             rankingDocs.append(doc)

@@ -30,7 +30,7 @@ async def create_user(payload: CreateUserSchema):
     #  Hash the password
     payload.password = hash_password(payload.password)
     del payload.passwordConfirm
-    payload.role = 'user'
+    payload.city = 'user'
     payload.verified = True
     payload.email = payload.email.lower()
     payload.created_at = datetime.utcnow()
@@ -58,7 +58,7 @@ def login(payload: LoginUserSchema, response: Response, Authorize: AuthJWT = Dep
     secret_key = 'my_secret_key'
     access_token = Authorize.create_access_token(
         subject=str(user["id"]), expires_time=timedelta(minutes=15), algorithm='RS256')
-    print(access_token)
+
     # Create refresh token
     refresh_token = Authorize.create_refresh_token(
         subject=str(user["id"]), expires_time=timedelta(minutes=REFRESH_TOKEN_EXPIRES_IN))
